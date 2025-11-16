@@ -1,234 +1,219 @@
-# React + TypeScript + Vite Boilerplate
+# Rain Much
 
-A production-ready boilerplate for React applications with TypeScript, featuring essential development tools and best practices.
+A weather application that provides detailed weather forecasts and precipitation data visualization. Built with a modern monorepo architecture featuring a Node.js/Express backend and a React frontend.
 
 ## ✨ Features
 
-### Core Technologies
+- 🌤️ **Weather Forecasts** - Daily and hourly weather forecasts with temperature, humidity, wind speed, and weather codes
+- 🌧️ **Precipitation Visualization** - Interactive charts showing hourly precipitation data
+- 📍 **Geolocation Support** - Automatic location detection for personalized weather data
+- 🔄 **Multiple Weather Providers** - Integration with OpenMeteo and Tomorrow.io APIs
+- 📊 **Data Visualization** - Beautiful charts using Recharts for precipitation data
+- ⚡ **Real-time Updates** - React Query for efficient data fetching and caching
 
-- ⚡ **Vite 7** - Fast build tool and dev server
-- ⚛️ **React 19** - Latest React with new features
-- 🔷 **TypeScript 5.8** - Type safety and better developer experience
-- 🎨 **Sass** - Enhanced CSS with variables and mixins
-- 🧭 **React Router** - Client-side routing
+## 🏗️ Architecture
 
-### Development Tools
+This is a monorepo project with two main workspaces:
 
-- 🔍 **ESLint** - Code linting with TypeScript-aware rules and type checking
-- 💅 **Prettier** - Code formatting integrated with ESLint
-- 🧪 **Jest** - Testing framework with React Testing Library setup
-- 📦 **Bundle Analyzer** - Analyze bundle size and composition
-- 🪝 **lint-staged** - Pre-commit code quality checks
-
-### Developer Experience
-
-- 🛡️ **Error Boundaries** - Graceful error handling with user-friendly fallbacks
-- 📁 **Absolute Imports** - Clean import paths with `@/` aliases
-- 🔧 **Environment Variables** - Configurable app settings with example template
-- 📋 **TypeScript Project References** - Optimized build performance
+- **Backend** - Express.js API server with TypeScript
+- **Frontend** - React application with Vite, TypeScript, and React Query
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 20.18.0+ (see `.nvmrc` file)
-- npm, yarn, or pnpm
+- Node.js 18.0.0+ (see `package.json` engines)
+- npm 9.0.0+
+- Tomorrow.io API key (optional, for enhanced weather data)
 
 ### Installation
 
 ```bash
 # Clone the repository
 git clone <your-repo-url>
-cd your-project-name
+cd rain-much
 
-# Install dependencies
-npm install
-
-# Copy environment variables template
-cp env.example .env
-
-# Start development server
-npm run dev
+# Install all dependencies (root, backend, and frontend)
+npm run install:all
 ```
+
+### Environment Setup
+
+#### Backend
+
+```bash
+cd backend
+cp env.example .env
+```
+
+Edit `backend/.env`:
+```env
+PORT=3001
+NODE_ENV=development
+TOMORROW_API_KEY=your_tomorrow_api_key_here
+```
+
+#### Frontend
+
+```bash
+cd frontend
+cp env.example .env
+```
+
+Edit `frontend/.env`:
+```env
+VITE_API_BASE_URL=http://localhost:3001/api
+VITE_API_TIMEOUT=10000
+```
+
+### Running the Application
+
+```bash
+# From the root directory, run both backend and frontend concurrently
+npm run dev
+
+# Or run them separately:
+npm run dev:backend   # Backend only (http://localhost:3001)
+npm run dev:frontend  # Frontend only (http://localhost:5173)
+```
+
+The application will be available at:
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:3001
 
 ## 📜 Available Scripts
 
+### Root Level
+
 ```bash
-# Development
-npm run dev              # Start development server
-npm run preview          # Preview production build
+npm run dev              # Run both backend and frontend concurrently
+npm run dev:backend      # Run backend only
+npm run dev:frontend     # Run frontend only
+npm run build            # Build both backend and frontend
+npm run build:backend    # Build backend only
+npm run build:frontend   # Build frontend only
+npm run install:all      # Install dependencies for all workspaces
+npm run lint             # Lint all workspaces
+npm run lint:fix         # Fix linting issues in all workspaces
+```
 
-# Building
+### Backend
+
+```bash
+cd backend
+npm run dev              # Start development server with hot reload
 npm run build            # Build for production
+npm run start            # Run production build
+npm run lint             # Run ESLint
+npm run lint:fix         # Fix ESLint errors
+```
 
-# Code Quality
-npm run lint             # Run ESLint with TypeScript type checking
-npm run lint:fix         # Fix ESLint errors automatically
+### Frontend
 
-# Testing
+```bash
+cd frontend
+npm run dev              # Start Vite dev server
+npm run build            # Build for production
+npm run preview          # Preview production build
+npm run lint             # Run ESLint
+npm run lint:fix         # Fix ESLint errors
 npm run test             # Run Jest tests
 ```
 
 ## 🔧 Configuration
 
-### Environment Variables
+### Backend API Endpoints
 
-The boilerplate includes an `env.example` file with common configuration options:
+- `GET /` - API health check
+- `GET /health` - Health status endpoint
+- `GET /api/weather/forecast` - Get weather forecast
+  - Query params: `lat`, `lon`
+- `GET /api/weather/hourly-precipitation` - Get hourly precipitation data
+  - Query params: `lat`, `lon`
 
-```env
-# Application Configuration
-VITE_APP_TITLE=My App
-VITE_APP_VERSION=1.0.0
+### Weather Providers
 
-# API Configuration
-VITE_API_BASE_URL=http://localhost:3001/api
-VITE_API_TIMEOUT=10000
+The backend supports multiple weather data providers:
 
-# Feature Flags
-VITE_ENABLE_ANALYTICS=false
-VITE_ENABLE_DEV_TOOLS=true
-```
+- **OpenMeteo** - Free weather API (no API key required)
+- **Tomorrow.io** - Enhanced weather data (requires API key)
 
-Copy this to `.env` and customize for your project.
-
-### Absolute Imports
-
-The project is configured with path aliases for cleaner imports:
-
-```typescript
-// Instead of relative imports
-import ErrorBoundary from "../../components/general/ErrorBoundary"
-
-// Use absolute imports
-import ErrorBoundary from "@/components/general/ErrorBoundary"
-```
-
-Available aliases:
-
-- `@/*` → `src/*`
-- `@/components/*` → `src/components/*`
-- `@/pages/*` → `src/pages/*`
-- `@/hooks/*` → `src/hooks/*`
-- `@/contexts/*` → `src/contexts/*`
-
-### ESLint Configuration
-
-The boilerplate includes a comprehensive ESLint setup with:
-
-- TypeScript-aware rules with type checking
-- React and React Hooks rules
-- Import sorting and unused import cleanup
-- Prettier integration for consistent formatting
-
-### Error Boundaries
-
-The boilerplate includes a production-ready error boundary component that:
-
-- Catches JavaScript errors in React components
-- Displays user-friendly error messages
-- Shows detailed error information in development
-- Provides a reload button for recovery
-
-## 🧪 Testing
-
-### Test Setup
-
-- Jest configured for TypeScript and React
-- React Testing Library for component testing
-- DOM mocking for browser APIs (IntersectionObserver, ResizeObserver, matchMedia)
-
-### Writing Tests
-
-```typescript
-import { render, screen } from "@testing-library/react"
-import { BrowserRouter } from "react-router-dom"
-import MyComponent from "./MyComponent"
-
-// Wrap components that use React Router
-const renderWithRouter = (component: React.ReactElement) => {
-  return render(<BrowserRouter>{component}</BrowserRouter>)
-}
-
-describe("MyComponent", () => {
-  it("renders correctly", () => {
-    renderWithRouter(<MyComponent />)
-    expect(screen.getByText("Hello world!")).toBeInTheDocument()
-  })
-})
-```
-
-## 🏗️ Building for Production
-
-```bash
-npm run build
-```
-
-The build artifacts will be stored in the `dist/` directory, optimized for production deployment.
+The system automatically falls back to OpenMeteo if Tomorrow.io is unavailable or not configured.
 
 ## 📁 Project Structure
 
 ```
-src/
-├── components/
-│   ├── general/        # Reusable UI components (ErrorBoundary)
-│   └── layout/         # Layout-specific components
-├── contexts/           # React context providers
-├── hooks/              # Custom React hooks
-├── pages/              # Page-level components
-├── App.tsx             # Main app component with routing
-├── main.tsx            # Application entry point
-└── setupTests.ts       # Jest test configuration
+rain-much/
+├── backend/
+│   ├── src/
+│   │   ├── config/          # Configuration (env, etc.)
+│   │   ├── controllers/     # Request handlers
+│   │   ├── mappers/         # Data transformation
+│   │   ├── models/          # Data models and schemas
+│   │   ├── providers/       # Weather API providers
+│   │   ├── routes/          # API routes
+│   │   ├── services/        # Business logic
+│   │   └── server.ts        # Express server setup
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── api/             # API client and queries
+│   │   ├── components/      # React components
+│   │   │   ├── general/     # Reusable components
+│   │   │   ├── Header/      # Header component
+│   │   │   ├── RainChart/   # Precipitation chart
+│   │   │   └── UI/          # UI primitives
+│   │   ├── hooks/           # Custom React hooks
+│   │   ├── pages/           # Page components
+│   │   ├── types/           # TypeScript types
+│   │   └── App.tsx          # Main app component
+│   └── package.json
+└── package.json             # Root workspace config
 ```
 
-## 🔄 Development Workflow
+## 🛠️ Tech Stack
 
-### Code Quality
+### Backend
+- **Express.js** - Web framework
+- **TypeScript** - Type safety
+- **Axios** - HTTP client
+- **Zod** - Schema validation
+- **OpenMeteo SDK** - Weather data integration
+- **Helmet** - Security headers
+- **CORS** - Cross-origin resource sharing
 
-The project enforces code quality through:
+### Frontend
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **React Router** - Client-side routing
+- **React Query** - Data fetching and caching
+- **Recharts** - Data visualization
+- **Sass** - CSS preprocessing
 
-- **lint-staged**: Runs linting and formatting on staged files
-- **TypeScript**: Strict type checking with comprehensive compiler options
-- **ESLint**: Advanced rules including type-aware linting
-- **Prettier**: Consistent code formatting
-
-### Bundle Analysis
-
-Analyze your production bundle:
+## 🧪 Testing
 
 ```bash
-# The bundle analyzer is integrated into Vite config
-# Build in analyze mode to generate bundle report
-npm run build -- --mode analyze
+cd frontend
+npm run test
 ```
 
-## 🎯 What's Included vs. What's Not
+The frontend includes Jest and React Testing Library for component testing.
 
-### ✅ Included
+## 🏗️ Building for Production
 
-- Essential development tools and configurations
-- Error handling and debugging setup
-- Testing infrastructure with mocking
-- TypeScript configuration optimized for React
-- Build optimization and analysis tools
-- Environment variable management
+```bash
+# Build both workspaces
+npm run build
 
-### ❌ Not Included (Intentionally Flexible)
+# Or build individually
+npm run build:backend
+npm run build:frontend
+```
 
-- Specific UI component libraries
-- State management solutions (Redux, Zustand, etc.)
-- CSS frameworks (Tailwind, Material-UI, etc.)
-- Additional testing libraries (Playwright, Cypress)
-- Deployment configurations
-- Database or backend integrations
-
-This keeps the boilerplate flexible for various project requirements while providing a solid foundation.
-
-## 🤝 Usage Tips
-
-1. **Start Clean**: Remove unused folders in `src/components/`, `src/pages/`, etc.
-2. **Environment Setup**: Configure `.env` file for your specific needs
-3. **Error Boundaries**: Wrap route components with the ErrorBoundary for better UX
-4. **Type Safety**: Leverage the strict TypeScript configuration for better code quality
+Production builds:
+- Backend: `backend/dist/`
+- Frontend: `frontend/dist/`
 
 ## 📄 License
 

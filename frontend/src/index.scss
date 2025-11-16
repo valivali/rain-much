@@ -1,0 +1,161 @@
+// Color Variables
+:root {
+  // Primary Colors
+  --color-primary: #2c3e50;
+  --color-primary-light: #34495e;
+  --color-primary-dark: #1a252f;
+
+  // Background Colors
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f7fa;
+  --color-bg-tertiary: #ecf0f1;
+  --color-bg-dark: #242424;
+  --color-bg-header: #2c3e50;
+
+  // Text Colors
+  --color-text-primary: #2c3e50;
+  --color-text-secondary: #7f8c8d;
+  --color-text-tertiary: #95a5a6;
+  --color-text-light: #ffffff;
+  --color-text-dark: #333333;
+  --color-text-muted: #213547;
+
+  // Accent Colors
+  --color-accent-primary: #3498db;
+  --color-accent-secondary: #646cff;
+  --color-accent-secondary-hover: #535bf2;
+  --color-accent-secondary-light: #747bff;
+  // Extended Accent/Danger States
+  --color-accent-primary-hover: #2980b9;
+  --color-accent-primary-active: #21618c;
+  --color-accent-secondary-active: #4a52d4;
+  --color-error-hover: #c0392b;
+  --color-error-active: #a93226;
+
+  // State Colors
+  --color-error: #e74c3c;
+  --color-error-light: #ff6b6b;
+  --color-success: #27ae60;
+  --color-warning: #f39c12;
+
+  // Temperature Colors
+  --color-temp-high: #e74c3c;
+
+  // Shadow Colors
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-light: rgba(0, 0, 0, 0.05);
+  --color-shadow-dark: rgba(0, 0, 0, 0.2);
+
+  // Border Colors
+  --color-border-primary: #3498db;
+  --color-border-light: rgba(0, 0, 0, 0.1);
+
+  // Font Settings
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Light mode (default)
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  width: 100vw;
+  min-height: 100vh;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-primary);
+}
+
+// Error Boundary Styles
+.error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.error-boundary-content {
+  text-align: center;
+  max-width: 600px;
+
+  h2 {
+    color: var(--color-error-light);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
+}
+
+.error-details {
+  background: var(--color-shadow-light);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: left;
+
+  summary {
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  pre {
+    font-size: 0.875rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+.error-boundary-button {
+  background-color: var(--color-accent-secondary);
+  color: var(--color-text-light);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: var(--color-accent-secondary-hover);
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: var(--color-bg-dark);
+  }
+
+  body {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: var(--color-bg-dark);
+  }
+
+  .error-details {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}

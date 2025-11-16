@@ -1,0 +1,34 @@
+.header {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-bg-header);
+  box-shadow: 0 2px 4px var(--color-shadow);
+
+  &__title {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+// Tablet and up
+@media (min-width: 768px) {
+  .header {
+    padding: 1.25rem;
+
+    &__title {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+// Desktop and up
+@media (min-width: 1024px) {
+  .header {
+    padding: 1.5rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+  }
+}
+

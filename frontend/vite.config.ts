@@ -21,7 +21,11 @@ export default defineConfig(({ mode }) => ({
       "@/components": path.resolve(__dirname, "./src/components"),
       "@/pages": path.resolve(__dirname, "./src/pages"),
       "@/hooks": path.resolve(__dirname, "./src/hooks"),
-      "@/contexts": path.resolve(__dirname, "./src/contexts")
+      "@/contexts": path.resolve(__dirname, "./src/contexts"),
+      "@/api": path.resolve(__dirname, "./src/api"),
+      "@/types": path.resolve(__dirname, "./src/types"),
+      "@/mappers": path.resolve(__dirname, "./src/mappers"),
+      "@/assets": path.resolve(__dirname, "./src/assets")
     }
   },
   define: {
